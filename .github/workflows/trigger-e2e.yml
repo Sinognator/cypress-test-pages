@@ -14,5 +14,5 @@ jobs:
           curl -X POST \
             -H "Authorization: token ${{ secrets.TRIGGER_TOKEN }}" \
             -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/Sinognator/cypress-intermediario-estudos/actions/workflows/testes-e2e.yml/dispatches \
+            https://api.github.com/repos/Sinognator/cypress-intermediario-estudos/actions/workflows/ci.yml/dispatches \
             -d '{"ref":"main"}'
