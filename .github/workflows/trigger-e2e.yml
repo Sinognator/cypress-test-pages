@@ -3,7 +3,7 @@ name: 🚀 Trigger E2E Tests
 on:
   push:
     branches:
-      - main  # ou a branch que você quer monitorar
+      - main
 
 jobs:
   trigger-tests:
