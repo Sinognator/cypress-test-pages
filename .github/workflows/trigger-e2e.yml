@@ -1,18 +1,27 @@
-name: 🚀 Trigger E2E Tests
+name: Disparar Testes E2E
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   trigger-tests:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Disparar testes no repositório principal
+      - name: 📥 Checkout do código
+        uses: actions/checkout@v3
+
+      - name: 🔐 Obter token secreto
+        run: echo "Token recebido com sucesso"
+
+      - name: 🚀 Disparar workflow no repositório de testes
+        env:
+          GH_TOKEN: ${{ secrets.TRIGGER_TOKEN }}
         run: |
+          COMMIT_MSG=$(git log -1 --pretty=format:"%s")
           curl -X POST \
-            -H "Authorization: token ${{ secrets.TRIGGER_TOKEN }}" \
-            -H "Accept: application/vnd.github.v3+json" \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GH_TOKEN" \
             https://api.github.com/repos/Sinognator/cypress-intermediario-estudos/actions/workflows/ci.yml/dispatches \
-            -d '{"ref":"main"}'
+            -d "{\"ref\":\"main\", \"inputs\":{\"commit_mensagem\": \"${COMMIT_MSG}\"}}"
