@@ -1,0 +1,18 @@
+name: 🚀 Trigger E2E Tests
+
+on:
+  push:
+    branches:
+      - main  # ou a branch que você quer monitorar
+
+jobs:
+  trigger-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Disparar testes no repositório principal
+        run: |
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.TRIGGER_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/Sinognator/cypress-intermediario-estudos/actions/workflows/testes-e2e.yml/dispatches \
+            -d '{"ref":"main"}'
